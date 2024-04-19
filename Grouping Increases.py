@@ -25,3 +25,26 @@ It is guaranteed that the sum of n over all test cases does not exceed 2⋅105.
 
 Output: For each test case, output a single integer representing the minimum possible penalty you will receive.
 """
+
+t = int(input())
+
+for _ in range(t):   # _ indicates that the looping variable is not used anywhere in the loop
+    n = int(input())
+    a = input()
+    *V, = map(int, a.split())   #split given string a at spaces, and convert it into list *V
+    
+    x = n + 1    # this will go in subsequence 1
+    y = n + 1    # this will go in subsequence 2
+    penalty = 0
+    
+    for v in V:
+        if v <= x:
+            x = v   # if v is less than all elements in subseq 1, v is added to subseq 1 without increasing the penalty
+        elif v <= y:
+            y = v   # if v is less than all elements in subseq 2, v is added to subseq 2 without increasing the penalty
+        else:
+            x = y
+            y = v    # if v is not less than previous element in subseq 1 and 2, v is added to subseq 2 and penalty is increased by 1
+            penalty += 1
+        
+    print(penalty)
